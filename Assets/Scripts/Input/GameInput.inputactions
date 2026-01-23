@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "GameInput",
     "maps": [
         {
@@ -27,7 +28,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "a197a3a7-82e5-4702-9d0a-06d51366bcdb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +37,7 @@
                     "name": "CameraOrbit",
                     "type": "Value",
                     "id": "1f93c39c-0541-45cb-8cdd-e043967d370a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -54,7 +55,7 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "0aae8cad-25bf-4595-ac6d-08a850c438fe",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -63,7 +64,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "b04a64b6-cd30-46da-b254-0a2dffab8f97",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -282,7 +283,7 @@
                 {
                     "name": "",
                     "id": "f4b17813-92ee-442f-93ec-33d9c7cbbc42",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
