@@ -76,6 +76,8 @@ public class MovementController : MonoBehaviour
                 Time.fixedDeltaTime * SquashAndStretchRecoverSpeed
             );
         }
+
+
     }
 	private void ConfigureRigidbody()
 	{
@@ -255,4 +257,5 @@ public class MovementController : MonoBehaviour
 	{
 		overridingMultiplyForceAndFriction = _overridingValues;
 	}
+	
 }

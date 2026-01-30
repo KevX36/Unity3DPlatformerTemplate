@@ -120,7 +120,9 @@ public class PlayerController : MonoBehaviour
 
     void OnPause()
     {
-        GameManager.Instance.TogglePauseMenu();
+        //GameManager.Instance.TogglePauseMenu();
+        Application.Quit();
+        Debug.Log("tried to close game");
     }
 
     /// <summary>
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour
         cameraAlignedRight = cameraRotation * Vector3.right;
         
         moveDirection = ((cameraAlignedForward * inputVector.y) + (cameraAlignedRight * inputVector.x)).normalized;
+        
     }
 
     /// <summary>

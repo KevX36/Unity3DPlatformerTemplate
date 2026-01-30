@@ -92,8 +92,10 @@ MonoBehaviour:
   SquashAndStretchRecoverSpeed: 5
   maxStepClimbable: 2
   maxTraversableSlope: 40
+  maxGroundedSlope: 65
   slideSpeed: 42
   platformGripForce: 7.7
+  extraGroundingHeightCheck: 0.1
   stompDamage: 1
   airRotationSpeed: 0.38
   airAcceleration: 18
@@ -104,6 +106,7 @@ MonoBehaviour:
   - {x: 0, y: 17, z: 6}
   chainJumpWindow: 0.1
   jumpBufferTime: 0.17
+  groundedTimeBeforeJump: 0.12
   jumpAudio: {fileID: 0}
   landAudio: {fileID: 0}
   onJumpPerformed:
@@ -160,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 100018}
   interactionRadius: 0.5
-  interactableButtonTexture: {fileID: 2800000, guid: e2f1960f9f69cd44598490a6220153a6,
+  interactableButtonTexture: {fileID: 2800000, guid: 9bb92634549db134a94788f32695251f,
     type: 3}
   throwForce: {x: 0, y: 5, z: 7}
   interactSound: {fileID: 0}
@@ -226,7 +229,39 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbd09978-406a-4519-aa8f-94f1a6428260
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 99b9c396-6efd-4735-bf54-dadad78c4954
+    m_ActionName: 'Player/Jump[/Keyboard/space,/Keyboard/rightCtrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a197a3a7-82e5-4702-9d0a-06d51366bcdb
+    m_ActionName: 'Player/Interact[/Keyboard/f,/Keyboard/slash]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1f93c39c-0541-45cb-8cdd-e043967d370a
+    m_ActionName: 'Player/CameraOrbit[/Keyboard/q,/Keyboard/e,/Mouse/rightButton,/Mouse/delta/left,/Mouse/delta/right,/Keyboard/semicolon,/Keyboard/quote]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2611d94a-3fdb-4f5b-802f-ebb454428c54
+    m_ActionName: 'Player/Pause[/Keyboard/backspace]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0aae8cad-25bf-4595-ac6d-08a850c438fe
+    m_ActionName: 'Player/Dash[/Keyboard/shift,/Keyboard/slash]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b04a64b6-cd30-46da-b254-0a2dffab8f97
+    m_ActionName: 'Player/Cancel[/Keyboard/tab,/Keyboard/quote]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ddcbb85a-faf1-45c5-a950-c60227d21a92
+    m_ActionName: 'Player/Quit[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -471,6 +506,9 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -860,7 +898,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6382151894925839782
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -874,6 +912,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
