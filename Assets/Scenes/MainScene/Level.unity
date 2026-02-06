@@ -3334,6 +3334,18 @@ PrefabInstance:
       value: Coin (10)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.34999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.62908
       objectReference: {fileID: 0}
@@ -3351,15 +3363,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.3535534
+      value: 0.35355347
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3535534
+      value: 0.35355344
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.14644663
+      value: -0.14644666
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1832578c6ab76cf47bf356e3589f7c2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11113,6 +11125,7 @@ SceneRoots:
   - {fileID: 571946793}
   - {fileID: 2093444694}
   - {fileID: 1297878231}
+  - {fileID: 649097713}
   - {fileID: 314674812}
   - {fileID: 1535120552}
   - {fileID: 65705011}
@@ -11182,7 +11195,6 @@ SceneRoots:
   - {fileID: 39683429}
   - {fileID: 176376836}
   - {fileID: 572980788}
-  - {fileID: 649097713}
   - {fileID: 392423087}
   - {fileID: 848516063}
   - {fileID: 1453623059}
