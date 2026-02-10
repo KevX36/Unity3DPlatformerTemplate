@@ -68,6 +68,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Graple",
+                    "type": "Button",
+                    "id": "56662ae1-92bd-45cc-8e47-18b68ce0cebc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -541,6 +550,17 @@
                     "processors": "",
                     "groups": "KeyboardSecondary",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b430d62-4c53-45ec-b268-4e436ec0c486",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Graple",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
