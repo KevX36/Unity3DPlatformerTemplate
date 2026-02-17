@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +15,8 @@ public class PlayerController : MonoBehaviour
     private AdvancedMoveController moveController;
     private Rigidbody rb;
     private DashController dashController;
-    
+
+    private Graple grapleController;
     // Movement state
     private Vector3 moveDirection;
     private Vector3 cameraAlignedForward;
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
     
     public bool JoinedThroughGameManager { get; set; } = false;
     public static List<PlayerController> players = new List<PlayerController>();
+
+    //grapleing hook gameobject
+    public GameObject GraplingHook;
     private void OnEnable()
     {
         if(moveController != null)
@@ -66,6 +71,8 @@ public class PlayerController : MonoBehaviour
         characterAnimator = GetComponentInChildren<Animator>();
         healthComponent = GetComponent<HealthController>();
 
+        grapleController = GraplingHook.GetComponent<Graple>();
+        
         if (CameraFollower)
         {
             if (playerInput.camera == null) {
@@ -101,7 +108,19 @@ public class PlayerController : MonoBehaviour
         if (CameraFollower)
             Destroy(CameraFollower.gameObject);
     }
+    //
+    void OnGraple()
+    {
+        if (!GameManager.Instance.IsShowingPauseMenu)
+        {
+            GraplingHook.gameObject.SetActive(true);
+            grapleController.ShootGraple();
+        }
 
+
+
+    }
+    
     void OnMove(InputValue inputVal)
     {
         if (GameManager.Instance.IsShowingPauseMenu)
@@ -120,8 +139,8 @@ public class PlayerController : MonoBehaviour
 
     void OnPause()
     {
-        //GameManager.Instance.TogglePauseMenu();
-        Application.Quit();
+        GameManager.Instance.TogglePauseMenu();
+        
         Debug.Log("tried to close game");
     }
 
