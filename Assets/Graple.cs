@@ -61,10 +61,33 @@ public class Graple : MonoBehaviour
         {
             Debug.Log("reached point");
         }
-        
+
+        StartCoroutine(GrapleReturn());
+    }
+    IEnumerator GrapleReturn()
+    {
+        if (_player == null)
+        {
+            Debug.Log("player was not added correctly");
+
+            this.gameObject.SetActive(false);
+
+
+        }
+        while (Vector3.Distance(this.gameObject.transform.position, _player.transform.position) > 0.9f)
+        {
+
+            Debug.Log("returning");
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, _player.transform.position, _travelSpeed * 2 * Time.deltaTime);
+            yield return null;
+        }
+        if (Vector3.Distance(this.gameObject.transform.position, _player.transform.position) <= 0.9f)
+        {
+            Debug.Log("reached player");
+        }
+
         this.gameObject.gameObject.SetActive(false);
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if(_player == null)
@@ -73,7 +96,22 @@ public class Graple : MonoBehaviour
             this.gameObject.SetActive(false);
             
         }
-
+        Debug.Log("hit something");
+        if(collision.gameObject.CompareTag("Pickup"))
+        {
+            Debug.Log("hit pickup");
+            //add drag back here
+        }
+        else if (collision.gameObject.CompareTag("Pushable"))
+        {
+            //add move to object here
+            Debug.Log("hit pushable");
+        }
+        else
+        {
+            
+            StartCoroutine(GrapleReturn());
+        }
     }
     
     

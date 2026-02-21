@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 4477747605619270198}
   - component: {fileID: 7373476652204378586}
   - component: {fileID: 1676411218738748156}
-  - component: {fileID: 6136663833002941860}
+  - component: {fileID: 1587083049662932795}
   m_Layer: 0
   m_Name: GraplingHook
   m_TagString: Untagged
@@ -1069,14 +1069,14 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!64 &6136663833002941860
-MeshCollider:
+--- !u!65 &1587083049662932795
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1093,10 +1093,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.3, y: 1.3, z: 1.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7197167400750896205
 GameObject:
   m_ObjectHideFlags: 0
