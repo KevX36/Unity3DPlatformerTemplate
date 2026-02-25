@@ -24,7 +24,7 @@ public class Graple : MonoBehaviour
     public void ShootGraple()
     {
         this.gameObject.transform.position = _player.transform.position;
-        
+        this.gameObject.transform.rotation = Quaternion.Euler(90, _player.transform.rotation.eulerAngles.y, 0);
         _direction = _player.transform.forward * _range;
         _direction = _direction + _player.transform.position;
         _target.transform.position = _direction;
@@ -96,8 +96,14 @@ public class Graple : MonoBehaviour
             this.gameObject.SetActive(false);
             
         }
-        Debug.Log("hit something");
-        if(collision.gameObject.CompareTag("Pickup"))
+        
+        
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Respawn") || collision.gameObject.CompareTag("Finish") || collision.gameObject.CompareTag("Water"))
+        {
+            
+            return;
+        }
+        else if (collision.gameObject.CompareTag("Pickup"))
         {
             Debug.Log("hit pickup");
             //add drag back here
@@ -107,9 +113,10 @@ public class Graple : MonoBehaviour
             //add move to object here
             Debug.Log("hit pushable");
         }
-        else
+        //returns garple if it hits something other than the player or not solid objects
+        else 
         {
-            
+            Debug.Log("hit " + collision.gameObject.name);
             StartCoroutine(GrapleReturn());
         }
     }

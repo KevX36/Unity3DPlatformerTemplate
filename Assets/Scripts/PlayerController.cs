@@ -1,5 +1,7 @@
 using NUnit.Framework.Constraints;
+using NUnit.Framework.Internal.Commands;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +24,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 cameraAlignedForward;
     private Vector3 cameraAlignedRight;
     private Vector3 inputVector;
+    // used to resume movement after graple
+    private Vector3 movementStorage;
+    // makes sure you can stop moving after using graple
+    private bool ResumeMovment = false;
+    
 
     private HealthController healthComponent;
     private PlayerInput playerInput;
@@ -108,14 +115,19 @@ public class PlayerController : MonoBehaviour
         if (CameraFollower)
             Destroy(CameraFollower.gameObject);
     }
-    //
+    // shoots garpling hook
     void OnGraple()
     {
-        if (!GameManager.Instance.IsShowingPauseMenu)
+        //if added to all actions to insure garple is not active, stops actions while shooting the hook
+        if (!GraplingHook.gameObject.activeSelf)
         {
-            GraplingHook.gameObject.SetActive(true);
-            grapleController.ShootGraple();
+            if (!GameManager.Instance.IsShowingPauseMenu)
+            {
+                GraplingHook.gameObject.SetActive(true);
+                grapleController.ShootGraple();
+            }
         }
+        
 
 
 
@@ -123,22 +135,30 @@ public class PlayerController : MonoBehaviour
     
     void OnMove(InputValue inputVal)
     {
+        
         if (GameManager.Instance.IsShowingPauseMenu)
             inputVector = Vector3.zero;
+        
         else
             inputVector = inputVal.Get<Vector2>();
+        movementStorage = inputVector;
     }
     /// <summary>
     /// Handle jump input from the input system
     /// </summary>
     void OnJump()
     {
-        if (!GameManager.Instance.IsShowingPauseMenu)
-            moveController.RequestJump();
+        if (!GraplingHook.gameObject.activeSelf)
+        {
+            if (!GameManager.Instance.IsShowingPauseMenu)
+                moveController.RequestJump();
+        }
+        
     }
 
     void OnPause()
     {
+
         GameManager.Instance.TogglePauseMenu();
         
         Debug.Log("tried to close game");
@@ -149,8 +169,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void OnDash()
     {
-        if (!GameManager.Instance.IsShowingPauseMenu && dashController)
-            dashController.TryStartDash(moveDirection);
+        if (!GraplingHook.gameObject.activeSelf)
+        {
+            if (!GameManager.Instance.IsShowingPauseMenu && dashController)
+                dashController.TryStartDash(moveDirection);
+        }
+        
     }
 
     void OnCameraOrbit(InputValue inputVal)
@@ -163,6 +187,22 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // stops movement if garpling and resumes movement after garple without needing to press key again
+
+        
+        if (GraplingHook.gameObject.activeSelf)
+        {
+            ResumeMovment = true;
+            inputVector = Vector3.zero;
+        }
+        else if (movementStorage != null && ResumeMovment)
+        {
+            
+            Debug.Log("resumed movement");
+            inputVector = movementStorage;
+            ResumeMovment = false;
+        }
+
         // Convert input to camera-relative movement direction
         Quaternion cameraRotation = Quaternion.Euler(0, CameraFollower.transform.eulerAngles.y, 0);
         cameraAlignedForward = cameraRotation * Vector3.forward;
@@ -177,12 +217,21 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (moveController.enabled) {
+
+        
+
+
+
+        if (moveController.enabled)
+        {
+
             moveController.ApplyMovement(moveDirection);
             moveController.UpdateMovement();
         }
+        
 
         // Normal movement
+
         UpdateVisualFeedback();
 
         if (transform.position.y < -10f) {
