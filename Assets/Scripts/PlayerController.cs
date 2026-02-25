@@ -143,11 +143,8 @@ public class PlayerController : MonoBehaviour
             inputVector = inputVal.Get<Vector2>();
 
         //stores movement input during graple to resume after
-        if (GraplingHook.gameObject.activeSelf)
-        {
-            movementStorage = inputVector;
-        }
-            
+        movementStorage = inputVector;
+
     }
     /// <summary>
     /// Handle jump input from the input system
