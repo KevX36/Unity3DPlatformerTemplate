@@ -1045,7 +1045,7 @@ MonoBehaviour:
   _player: {fileID: 100002}
   _target: {fileID: 7197167400750896205}
   _range: 20
-  _travelSpeed: 30
+  _travelSpeed: 45
 --- !u!33 &7373476652204378586
 MeshFilter:
   m_ObjectHideFlags: 0

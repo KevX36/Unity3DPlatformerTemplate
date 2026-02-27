@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Water
   - death
+  - GraplePoint
   layers:
   - Default
   - TransparentFX
