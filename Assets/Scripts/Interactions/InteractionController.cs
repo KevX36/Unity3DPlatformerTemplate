@@ -44,6 +44,7 @@ public class InteractionController : MonoBehaviour
     public bool IsCurrentInteractingWithThis(Interactable otherInteractable)
     {
         return currentInteractable == otherInteractable;
+        
     }
 
     private void Awake()
@@ -150,7 +151,7 @@ public class InteractionController : MonoBehaviour
         PlaySound(interactSound);
         interactable.OnInteract(this);
         lastInteractionTime = Time.time;
-        
+        playerController.ToggleCanGraple();
         UpdateAnimator();
     }
 
@@ -164,6 +165,7 @@ public class InteractionController : MonoBehaviour
         PlaySound(releaseSound);
         endingInteraction.OnInteractionEnd(this);
         lastInteractionTime = Time.time;
+        playerController.ToggleCanGraple();
         UpdateAnimator();
     }
 

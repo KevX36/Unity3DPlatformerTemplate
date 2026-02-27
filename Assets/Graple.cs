@@ -34,10 +34,11 @@ public class Graple : MonoBehaviour
         StartCoroutine(GrapleShot());
         
     }
+    
+
+    //characterAnimator.SetBool(GrapleHash,true);
 
 
-    
-    
     //handles the graple going forwards when shot
     IEnumerator GrapleShot()
     {

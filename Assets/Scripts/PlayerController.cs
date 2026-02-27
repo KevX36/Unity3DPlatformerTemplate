@@ -28,7 +28,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementStorage;
     // makes sure you can stop moving after using graple
     private bool ResumeMovment = false;
+    //makes graple inactive while holding or pushing onjects
+    private bool canGraple = true;
     
+
+
 
     private HealthController healthComponent;
     private PlayerInput playerInput;
@@ -115,15 +119,22 @@ public class PlayerController : MonoBehaviour
         if (CameraFollower)
             Destroy(CameraFollower.gameObject);
     }
+    // changes if graple can be used
+    public void ToggleCanGraple()
+    {
+        canGraple = !canGraple;
+    }
     // shoots garpling hook
     void OnGraple()
     {
+        
         //if added to all actions to insure garple is not active, stops actions while shooting the hook
-        if (!GraplingHook.gameObject.activeSelf)
+        if (!GraplingHook.gameObject.activeSelf && canGraple)
         {
             if (!GameManager.Instance.IsShowingPauseMenu)
             {
                 GraplingHook.gameObject.SetActive(true);
+                
                 grapleController.ShootGraple();
             }
         }
@@ -255,6 +266,8 @@ public class PlayerController : MonoBehaviour
         characterAnimator.SetFloat(MovementController.AnimationID_DistanceToTarget, moveController.distanceToDestination);
         characterAnimator.SetBool(MovementController.AnimationID_IsGrounded, moveController.isGrounded);
         characterAnimator.SetFloat(MovementController.AnimationID_YVelocity, rb.linearVelocity.y);
+
+        characterAnimator.SetBool("Grapling", GraplingHook.gameObject.activeSelf);
     }
 
 } 
