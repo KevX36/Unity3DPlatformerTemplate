@@ -11,6 +11,7 @@ public class Graple : MonoBehaviour
     
     [SerializeField]private GameObject _player;
     [SerializeField]private GameObject _target;
+    private Vector3 _lockedTarget;
     private Vector3 _direction;
     public float _range = 10;
     public float _travelSpeed = 5;
@@ -28,7 +29,7 @@ public class Graple : MonoBehaviour
         _direction = _player.transform.forward * _range;
         _direction = _direction + _player.transform.position;
         _target.transform.position = _direction;
-
+        _lockedTarget = _target.transform.position;
 
 
         StartCoroutine(GrapleShot());
@@ -50,14 +51,14 @@ public class Graple : MonoBehaviour
             
             
         }
-        while (Vector3.Distance(this.gameObject.transform.position, _target.transform.position) > 0.9f)
+        while (Vector3.Distance(this.gameObject.transform.position, _lockedTarget) > 0.9f)
         {
             
             Debug.Log("shooting");
-            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, _target.transform.position, _travelSpeed*Time.deltaTime);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, _lockedTarget, _travelSpeed*Time.deltaTime);
             yield return null;
         }
-        if(Vector3.Distance(this.gameObject.transform.position, _target.transform.position) <= 0.9f)
+        if(Vector3.Distance(this.gameObject.transform.position, _lockedTarget) <= 0.9f)
         {
             Debug.Log("reached point");
         }
@@ -88,6 +89,30 @@ public class Graple : MonoBehaviour
 
         this.gameObject.gameObject.SetActive(false);
     }
+    IEnumerator DragPickup(GameObject Pickup)
+    {
+        if (_player == null)
+        {
+            Debug.Log("player was not added correctly");
+
+            this.gameObject.SetActive(false);
+
+
+        }
+        while (Vector3.Distance(this.gameObject.transform.position, _player.transform.position) > 0.9f)
+        {
+
+            Debug.Log("returning");
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, _player.transform.position, _travelSpeed * 2 * Time.deltaTime);
+            Pickup.transform.position = this.transform.position;
+            yield return null;
+        }
+        if (Vector3.Distance(this.gameObject.transform.position, _player.transform.position) <= 0.9f)
+        {
+            Debug.Log("reached player");
+        }
+        this.gameObject.gameObject.SetActive(false);
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(_player == null)
@@ -106,7 +131,7 @@ public class Graple : MonoBehaviour
         else if (collision.gameObject.CompareTag("Pickup"))
         {
             Debug.Log("hit pickup");
-            //add drag back here
+            StartCoroutine(DragPickup(collision.gameObject));
         }
         else if (collision.gameObject.CompareTag("Pushable"))
         {
