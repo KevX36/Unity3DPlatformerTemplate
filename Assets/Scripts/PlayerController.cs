@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Awake()
     {
+
         players.Add(this);
         // Ensure correct tag for player identification
         if(!gameObject.CompareTag("Player"))
@@ -83,7 +84,9 @@ public class PlayerController : MonoBehaviour
         healthComponent = GetComponent<HealthController>();
 
         grapleController = GraplingHook.GetComponent<Graple>();
-        
+        //makes sure graple is inactive otherwise controller will freeze
+        GraplingHook.gameObject.SetActive(false);
+
         if (CameraFollower)
         {
             if (playerInput.camera == null) {

@@ -11,7 +11,9 @@ public class Graple : MonoBehaviour
     
     [SerializeField]private GameObject _player;
     [SerializeField]private GameObject _target;
-    
+    public AudioSource clank;
+    public AudioSource chainShot;
+    public AudioSource chainLock;
     private Vector3 _direction;
     public float _range = 10;
     public float _travelSpeed = 5;
@@ -42,7 +44,7 @@ public class Graple : MonoBehaviour
     //handles the graple going forwards when shot
     IEnumerator GrapleShot()
     {
-        
+        chainShot.Play();
         if (_player == null)
         {
             Debug.Log("player was not added correctly");
@@ -55,11 +57,13 @@ public class Graple : MonoBehaviour
         {
             
             Debug.Log("shooting");
+            
             this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, _target.transform.position, _travelSpeed*Time.deltaTime);
             yield return null;
         }
         if(Vector3.Distance(this.gameObject.transform.position, _target.transform.position) <= 0.9f)
         {
+            
             Debug.Log("reached point");
         }
 
@@ -67,6 +71,7 @@ public class Graple : MonoBehaviour
     }
     IEnumerator GrapleReturn()
     {
+        chainShot.Play();
         if (_player == null)
         {
             Debug.Log("player was not added correctly");
@@ -86,11 +91,12 @@ public class Graple : MonoBehaviour
         {
             Debug.Log("reached player");
         }
-
+        chainShot.Stop();
         this.gameObject.gameObject.SetActive(false);
     }
     IEnumerator DragPickup(GameObject Pickup)
     {
+        chainShot.Play();
         if (_player == null)
         {
             Debug.Log("player was not added correctly");
@@ -111,10 +117,12 @@ public class Graple : MonoBehaviour
         {
             Debug.Log("Returned with pickup");
         }
+        chainShot.Stop();
         this.gameObject.gameObject.SetActive(false);
     }
     IEnumerator GoToGraple(Transform graplelocation)
     {
+        chainShot.Play();
         if (_player == null)
         {
             Debug.Log("player was not added correctly");
@@ -134,7 +142,7 @@ public class Graple : MonoBehaviour
         {
             Debug.Log("palyer reached point");
         }
-
+        chainShot.Stop();
         this.gameObject.gameObject.SetActive(false);
     }
     private void OnCollisionEnter(Collision collision)
@@ -154,19 +162,25 @@ public class Graple : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Pickup"))
         {
+            chainShot.Stop();
             Debug.Log("hit pickup");
+            chainLock.Play();
             StartCoroutine(DragPickup(collision.gameObject));
         }
         else if (collision.gameObject.CompareTag("Pushable")|| collision.gameObject.CompareTag("GraplePoint"))
         {
+            chainShot.Stop();
             Debug.Log("hit pushable");
+            chainLock.Play();
             StartCoroutine(GoToGraple(collision.transform));
             
         }
         //returns garple if it hits something other than the player or not solid objects
         else 
         {
+            chainShot.Stop();
             Debug.Log("hit " + collision.gameObject.name);
+            clank.Play();
             StartCoroutine(GrapleReturn());
         }
     }
