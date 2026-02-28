@@ -1,4 +1,4 @@
-//modied/new scripts/objects: graple, player controller, player prefab
+//modied/new scripts/objects: graple, player controller,interaction Controller, player prefab
 //
 // press R to shoot the grapling hook, it will fire stright forwards
 //

@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Graple : MonoBehaviour
 {
-    
+    Rigidbody _rb;
     [SerializeField]private GameObject _player;
     [SerializeField]private GameObject _target;
     public AudioSource clank;
@@ -17,6 +17,7 @@ public class Graple : MonoBehaviour
     private Vector3 _direction;
     public float _range = 10;
     public float _travelSpeed = 5;
+    
     
     //sets hook to this gameObject
     private void Start()
@@ -31,7 +32,7 @@ public class Graple : MonoBehaviour
         _direction = _player.transform.forward * _range;
         _direction = _direction + _player.transform.position;
         _target.transform.position = _direction;
-
+        _rb = _player.GetComponent<Rigidbody>();
 
         StartCoroutine(GrapleShot());
         
@@ -120,8 +121,11 @@ public class Graple : MonoBehaviour
         chainShot.Stop();
         this.gameObject.gameObject.SetActive(false);
     }
-    IEnumerator GoToGraple(Transform graplelocation)
+    IEnumerator GoToGraple(Transform graplelocation,Transform playerStartLocation,float lerpTimer)
     {
+        //makes sure grapling is not chopy once built
+        _rb.useGravity = false;
+        
         chainShot.Play();
         if (_player == null)
         {
@@ -133,9 +137,10 @@ public class Graple : MonoBehaviour
         }
         while (Vector3.Distance(_player.transform.position, graplelocation.position) > 0.9f)
         {
+            lerpTimer += Time.deltaTime;
             this.gameObject.transform.position = graplelocation.position;
-            Debug.Log("shooting");
-            _player.transform.position = Vector3.MoveTowards(_player.transform.position, graplelocation.position, _travelSpeed * Time.deltaTime *1.2f);
+            Debug.Log("Moving to graple");
+            _rb.MovePosition( Vector3.MoveTowards(_player.transform.position, graplelocation.position, _travelSpeed * 1.2f * Time.deltaTime));
             yield return null;
         }
         if (Vector3.Distance(_player.transform.position, graplelocation.position) <= 0.9f)
@@ -143,6 +148,8 @@ public class Graple : MonoBehaviour
             Debug.Log("palyer reached point");
         }
         chainShot.Stop();
+        
+        _rb.useGravity = true;
         this.gameObject.gameObject.SetActive(false);
     }
     private void OnCollisionEnter(Collision collision)
@@ -172,7 +179,7 @@ public class Graple : MonoBehaviour
             chainShot.Stop();
             Debug.Log("hit pushable");
             chainLock.Play();
-            StartCoroutine(GoToGraple(collision.transform));
+            StartCoroutine(GoToGraple(collision.transform,_player.transform,0));
             
         }
         //returns garple if it hits something other than the player or not solid objects

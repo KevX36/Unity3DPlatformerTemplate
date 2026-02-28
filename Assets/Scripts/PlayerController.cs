@@ -205,11 +205,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // stops movement if garpling and resumes movement after garple without needing to press key again
-
+        //gravite makes sure there is no stutter once built while grapling
         
         if (GraplingHook.gameObject.activeSelf)
         {
             ResumeMovment = true;
+            
             inputVector = Vector3.zero;
         }
         else if (movementStorage != null && ResumeMovment)
@@ -219,6 +220,7 @@ public class PlayerController : MonoBehaviour
             inputVector = movementStorage;
             ResumeMovment = false;
         }
+        
 
         // Convert input to camera-relative movement direction
         Quaternion cameraRotation = Quaternion.Euler(0, CameraFollower.transform.eulerAngles.y, 0);
